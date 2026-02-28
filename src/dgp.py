@@ -24,7 +24,7 @@ def generate_simpsons_data(
     groups = []
     for g, shift in zip(["A", "B"], [0, group_shift]):
         X = rng.normal(loc=shift, scale=1.0, size=n_per_group)
-        Y = beta * X - shift + rng.normal(0, noise_std, size=n_per_group)
+        Y = beta * X - 2 * shift + rng.normal(0, noise_std, size=n_per_group)
 
         df_group = pd.DataFrame({
             "group": g,
