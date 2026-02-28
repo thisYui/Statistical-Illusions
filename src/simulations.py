@@ -147,3 +147,64 @@ def simulate_spurious_correlation_instability(
         "simulation": np.arange(n_simulations),
         "correlation": correlations
     })
+
+def simulate_wealth_paths(
+    n_paths: int = 1000,
+    periods: int = 50,
+    mu: float = 0.03,
+    sigma: float = 0.4,
+    initial_wealth: float = 1.0,
+    bankruptcy_threshold: float = 0.3,
+    crash_prob: float = 0.05,
+    crash_severity: float = 0.5,
+    seed: int | None = None,
+) -> pd.DataFrame:
+    """
+    Simulate multiplicative wealth dynamics with realistic extinction.
+
+    Wealth evolves as:
+        W_{t+1} = W_t * exp(μ - 0.5σ² + σ Z_t)
+
+    Additional crash risk:
+        With probability crash_prob,
+        wealth is multiplied by (1 - crash_severity)
+
+    Bankruptcy occurs if wealth < bankruptcy_threshold.
+    """
+
+    rng = np.random.default_rng(seed)
+
+    records = []
+
+    for path in range(n_paths):
+
+        wealth = initial_wealth
+        alive = True
+
+        for t in range(periods):
+
+            if alive:
+
+                # Lognormal return
+                z = rng.normal()
+                growth_factor = np.exp(mu - 0.5 * sigma**2 + sigma * z)
+                wealth *= growth_factor
+
+                # Occasional crash
+                if rng.random() < crash_prob:
+                    wealth *= (1 - crash_severity)
+
+                # Bankruptcy check
+                if wealth < bankruptcy_threshold:
+                    wealth = 0.0
+                    alive = False
+
+            # Record even after death (wealth stays 0)
+            records.append({
+                "path": path,
+                "time": t,
+                "wealth": wealth,
+                "alive": alive
+            })
+
+    return pd.DataFrame(records)

@@ -149,3 +149,55 @@ def plot_contribution_bar(df: pd.DataFrame, top_n: int = 10):
     plt.ylabel("State Rank")
     plt.tight_layout()
     plt.show()
+
+
+def plot_sample_wealth_paths(
+    df: pd.DataFrame,
+    n_paths: int = 50,
+    log_scale: bool = True,
+    figsize: tuple = (10, 6),
+) -> None:
+    """
+    Plot sample wealth trajectories.
+
+    Parameters:
+    - df: DataFrame from simulate_wealth_paths
+    - n_paths: number of random paths to display
+    - log_scale: whether to use log-scale on y-axis
+    """
+
+    sample_paths = df["path"].unique()[:n_paths]
+
+    plt.figure(figsize=figsize)
+
+    for p in sample_paths:
+        path_df = df[df["path"] == p]
+        plt.plot(path_df["time"], path_df["wealth"], alpha=0.3)
+
+    if log_scale:
+        plt.yscale("log")
+
+    plt.title("Sample Wealth Paths")
+    plt.xlabel("Time")
+    plt.ylabel("Wealth")
+    plt.show()
+
+
+def plot_final_wealth_distribution(
+    df: pd.DataFrame,
+    bins: int = 50,
+    figsize: tuple = (8, 5),
+) -> None:
+    """
+    Plot histogram of final wealth distribution.
+    """
+
+    final_time = df["time"].max()
+    final_df = df[df["time"] == final_time]
+
+    plt.figure(figsize=figsize)
+    sns.histplot(final_df["wealth"], bins=bins)
+    plt.title("Final Wealth Distribution")
+    plt.xlabel("Wealth")
+    plt.ylabel("Frequency")
+    plt.show()

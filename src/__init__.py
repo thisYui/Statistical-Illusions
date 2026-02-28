@@ -18,6 +18,7 @@ from .simulations import (
     simulate_sample_mean_distribution,
     simulate_survival_paths,
     simulate_spurious_correlation_instability,
+    simulate_wealth_paths
 )
 
 # ==========================================================
@@ -33,6 +34,7 @@ from .metrics import (
     compute_survival_rate,
     compute_survivor_vs_full_mean,
     compute_expectation_contributions,
+    summarize_survivorship,
 )
 
 # ==========================================================
@@ -47,6 +49,8 @@ from .visualization import (
     plot_survival_distribution,
     plot_spurious_correlation,
     plot_contribution_bar,
+    plot_sample_wealth_paths,
+    plot_final_wealth_distribution
 )
 
 # ==========================================================
@@ -65,6 +69,7 @@ __all__ = [
     "simulate_sample_mean_distribution",
     "simulate_survival_paths",
     "simulate_spurious_correlation_instability",
+    "simulate_wealth_paths",
 
     # Metrics
     "compute_mean_median_gap",
@@ -75,6 +80,7 @@ __all__ = [
     "compute_survival_rate",
     "compute_survivor_vs_full_mean",
     "compute_expectation_contributions",
+    "summarize_survivorship",
 
     # Visualization
     "plot_distribution",
@@ -84,4 +90,6 @@ __all__ = [
     "plot_survival_distribution",
     "plot_spurious_correlation",
     "plot_contribution_bar",
+    "plot_sample_wealth_paths",
+    "plot_final_wealth_distribution",
 ]

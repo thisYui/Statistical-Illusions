@@ -119,3 +119,27 @@ def compute_expectation_contributions(
     df["contribution_share"] = df["contribution"] / df["contribution"].sum()
 
     return df.sort_values("contribution_share", ascending=False).reset_index(drop=True)
+
+
+def summarize_survivorship(df: pd.DataFrame) -> dict:
+    """
+    Compare full-sample vs survivor-only statistics
+    at final time period.
+    """
+
+    final_time = df["time"].max()
+    final_df = df[df["time"] == final_time]
+
+    full_mean = final_df["wealth"].mean()
+    median = final_df["wealth"].median()
+
+    survivors = final_df[final_df["alive"]]
+    survivor_mean = survivors["wealth"].mean() if len(survivors) > 0 else np.nan
+    survival_rate = survivors.shape[0] / final_df.shape[0]
+
+    return {
+        "full_mean": full_mean,
+        "median": median,
+        "survivor_mean": survivor_mean,
+        "survival_rate": survival_rate,
+    }
