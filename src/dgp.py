@@ -106,20 +106,29 @@ def generate_survivorship_data(
 # 4. Spurious Correlation (Hidden Variable)
 # ==========================================================
 
-def generate_spurious_correlation_data(
+def generate_latent_factor_data(
     n: int = 1000,
+    beta_x: float = 1.0,
+    beta_y: float = 1.0,
     noise_std: float = 1.0,
     seed: int | None = None,
 ) -> pd.DataFrame:
     """
-    Generate two variables X and Y that appear correlated
-    due to a shared hidden variable Z.
+    Generate spurious correlation via hidden common factor.
+
+    X = beta_x * Z + ε_x
+    Y = beta_y * Z + ε_y
+
+    Z is unobserved common factor.
     """
     rng = np.random.default_rng(seed)
 
     Z = rng.normal(0, 1, n)
-    X = Z + rng.normal(0, noise_std, n)
-    Y = Z + rng.normal(0, noise_std, n)
+    eps_x = rng.normal(0, noise_std, n)
+    eps_y = rng.normal(0, noise_std, n)
+
+    X = beta_x * Z + eps_x
+    Y = beta_y * Z + eps_y
 
     return pd.DataFrame({
         "X": X,

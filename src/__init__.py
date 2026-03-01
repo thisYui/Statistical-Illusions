@@ -6,7 +6,7 @@ from .dgp import (
     generate_simpsons_data,
     generate_lognormal_data,
     generate_survivorship_data,
-    generate_spurious_correlation_data,
+    generate_latent_factor_data,
 )
 
 # ==========================================================
@@ -50,7 +50,8 @@ from .visualization import (
     plot_spurious_correlation,
     plot_contribution_bar,
     plot_sample_wealth_paths,
-    plot_final_wealth_distribution
+    plot_final_wealth_distribution,
+    plot_spurious_scatter,
 )
 
 # ==========================================================
@@ -62,7 +63,7 @@ __all__ = [
     "generate_simpsons_data",
     "generate_lognormal_data",
     "generate_survivorship_data",
-    "generate_spurious_correlation_data",
+    "generate_latent_factor_data",
 
     # Simulations
     "simulate_coin_flips",
@@ -92,4 +93,5 @@ __all__ = [
     "plot_contribution_bar",
     "plot_sample_wealth_paths",
     "plot_final_wealth_distribution",
+    "plot_spurious_scatter",
 ]

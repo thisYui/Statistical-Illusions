@@ -201,3 +201,33 @@ def plot_final_wealth_distribution(
     plt.xlabel("Wealth")
     plt.ylabel("Frequency")
     plt.show()
+
+
+def plot_spurious_scatter(
+    df: pd.DataFrame,
+    x_col: str = "X",
+    y_col: str = "Y",
+    alpha: float = 0.4,
+    figsize: tuple = (6, 5),
+    show_corr: bool = True,
+) -> float:
+    """
+    Plot scatter of two variables and optionally display correlation.
+
+    Returns:
+        Pearson correlation coefficient.
+    """
+
+    corr = df[[x_col, y_col]].corr().iloc[0, 1]
+
+    plt.figure(figsize=figsize)
+    sns.scatterplot(data=df, x=x_col, y=y_col, alpha=alpha)
+
+    title = f"Scatter Plot of {x_col} vs {y_col}"
+    if show_corr:
+        title += f"\nCorrelation = {corr:.4f}"
+
+    plt.title(title)
+    plt.show()
+
+    return corr
