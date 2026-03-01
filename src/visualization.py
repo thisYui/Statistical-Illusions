@@ -231,3 +231,24 @@ def plot_spurious_scatter(
     plt.show()
 
     return corr
+
+
+def plot_sampling_distribution(
+    df: pd.DataFrame,
+    column: str,
+    bins: int = 40,
+    figsize: tuple = (8, 5),
+) -> None:
+    """
+    Plot histogram of sampling distribution.
+    """
+
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    plt.figure(figsize=figsize)
+    sns.histplot(df[column], bins=bins)
+    plt.title(f"Sampling Distribution of {column}")
+    plt.xlabel(column)
+    plt.ylabel("Frequency")
+    plt.show()

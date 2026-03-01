@@ -18,7 +18,9 @@ from .simulations import (
     simulate_sample_mean_distribution,
     simulate_survival_paths,
     simulate_spurious_correlation_instability,
-    simulate_wealth_paths
+    simulate_wealth_paths,
+    simulate_correlation_instability,
+    simulate_mean_instability,
 )
 
 # ==========================================================
@@ -35,6 +37,7 @@ from .metrics import (
     compute_survivor_vs_full_mean,
     compute_expectation_contributions,
     summarize_survivorship,
+    summarize_sampling_distribution,
 )
 
 # ==========================================================
@@ -52,6 +55,7 @@ from .visualization import (
     plot_sample_wealth_paths,
     plot_final_wealth_distribution,
     plot_spurious_scatter,
+    plot_sampling_distribution,
 )
 
 # ==========================================================
@@ -71,6 +75,8 @@ __all__ = [
     "simulate_survival_paths",
     "simulate_spurious_correlation_instability",
     "simulate_wealth_paths",
+    "simulate_correlation_instability",
+    "simulate_mean_instability",
 
     # Metrics
     "compute_mean_median_gap",
@@ -82,6 +88,7 @@ __all__ = [
     "compute_survivor_vs_full_mean",
     "compute_expectation_contributions",
     "summarize_survivorship",
+    "summarize_sampling_distribution",
 
     # Visualization
     "plot_distribution",
@@ -94,4 +101,5 @@ __all__ = [
     "plot_sample_wealth_paths",
     "plot_final_wealth_distribution",
     "plot_spurious_scatter",
+    "plot_sampling_distribution",
 ]

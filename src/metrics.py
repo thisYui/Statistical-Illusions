@@ -143,3 +143,20 @@ def summarize_survivorship(df: pd.DataFrame) -> dict:
         "survivor_mean": survivor_mean,
         "survival_rate": survival_rate,
     }
+
+
+def summarize_sampling_distribution(df: pd.DataFrame, column: str) -> dict:
+    """
+    Compute summary statistics of sampling distribution.
+    """
+
+    values = df[column]
+
+    return {
+        "mean": float(values.mean()),
+        "std": float(values.std()),
+        "min": float(values.min()),
+        "max": float(values.max()),
+        "q_5": float(values.quantile(0.05)),
+        "q_95": float(values.quantile(0.95)),
+    }

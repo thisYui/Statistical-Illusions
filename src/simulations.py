@@ -208,3 +208,49 @@ def simulate_wealth_paths(
             })
 
     return pd.DataFrame(records)
+
+
+def simulate_correlation_instability(
+    n_simulations: int = 1000,
+    sample_size: int = 30,
+    seed: int | None = None,
+) -> pd.DataFrame:
+    """
+    Simulate sampling distribution of correlation
+    when true population correlation = 0.
+    """
+
+    rng = np.random.default_rng(seed)
+
+    correlations = []
+
+    for _ in range(n_simulations):
+        X = rng.normal(0, 1, sample_size)
+        Y = rng.normal(0, 1, sample_size)  # independent of X
+
+        corr = np.corrcoef(X, Y)[0, 1]
+        correlations.append(corr)
+
+    return pd.DataFrame({"correlation": correlations})
+
+
+def simulate_mean_instability(
+    n_simulations: int = 1000,
+    sample_size: int = 30,
+    mu: float = 0.0,
+    sigma: float = 1.0,
+    seed: int | None = None,
+) -> pd.DataFrame:
+    """
+    Simulate instability of sample mean under lognormal distribution.
+    """
+
+    rng = np.random.default_rng(seed)
+
+    means = []
+
+    for _ in range(n_simulations):
+        sample = rng.lognormal(mean=mu, sigma=sigma, size=sample_size)
+        means.append(np.mean(sample))
+
+    return pd.DataFrame({"sample_mean": means})
